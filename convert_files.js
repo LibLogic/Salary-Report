@@ -1,15 +1,15 @@
 var fs = require("fs");
 var readline = require('readline');
 
-arrayFromFile("load_dept_names.txt");
-arrayFromFile("load_dept_emp.txt");
-arrayFromFile("load_employees.txt");
-arrayFromFile("load_salaries.txt");
+convertFile("load_dept_names.txt");
+convertFile("load_dept_emp.txt");
+convertFile("load_employees.txt");
+convertFile("load_salaries.txt");
 
 // var buildObj = {};
 var threeDeepArray = [];
 var fileCount = 0;
-function arrayFromFile(file){
+function convertFile(file){
 	var myInterface = readline.createInterface({
 	  input: fs.createReadStream(file)
 	});
@@ -29,11 +29,11 @@ function arrayFromFile(file){
 		fileCount++;
 		threeDeepArray.push(twoDeepArray);
 		if (fileCount == 4){
-			console.log(threeDeepArray); 
+			// console.log(threeDeepArray); 
 // var keyName = file.split('.')[0];
 // buildObj[keyName] = buildArray;
 // fs.writeFile("new_" + file.split('.')[0] + ".txt", JSON.stringify(buildObj), function(err){
-			fs.writeFile("three_dim_array.txt", JSON.stringify(threeDeepArray), function(err){
+			fs.writeFile("files_as_array.txt", JSON.stringify(threeDeepArray), function(err){
 				if(err){ throw err }
 			});	
 		}
