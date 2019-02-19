@@ -37,7 +37,7 @@ function convertFile(file){
 				if(err){ throw err }
 			});	
 		}
-		fs.rename(file, "oldFiles/" + file, function(err){
+		fs.rename(file, "processedFiles/" + file, function(err){
 			if (err) { throw err }
 		});	
 	});
