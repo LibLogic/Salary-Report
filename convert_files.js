@@ -6,39 +6,44 @@ convertFile("load_dept_emp.txt");
 convertFile("load_employees.txt");
 convertFile("load_salaries.txt");
 
-// var buildObj = {};
+// This function create3 a 3 dimensional array with each
+// file as an element in the array
 var threeDeepArray = [];
 var fileCount = 0;
 function convertFile(file){
 	var myInterface = readline.createInterface({
 	  input: fs.createReadStream(file)
 	});
-	// var lineno = 0;
+	
+	// creates a 2 dimensional array with each
+	// element being a line from the file
 	var twoDeepArray = [];
 	myInterface.on('line', function (line) {
-		// lineno++;
 		line = line.replace(/\(|\)\,|\)|\s/g, "").replace(/\'/g, "\"");
 		line = JSON.parse('[' + line + ']');
-// if(lineno == 16){
 		twoDeepArray.push(line);
-// }
 	});
-
+// put eah 2 dimensional array into another "3d" array
 	myInterface.on
 	('close', function(){
 		fileCount++;
 		threeDeepArray.push(twoDeepArray);
 		if (fileCount == 4){
-			// console.log(threeDeepArray); 
-// var keyName = file.split('.')[0];
-// buildObj[keyName] = buildArray;
-// fs.writeFile("new_" + file.split('.')[0] + ".txt", JSON.stringify(buildObj), function(err){
+			
+// Save 3d array to a file
 			fs.writeFile("files_as_array.txt", JSON.stringify(threeDeepArray), function(err){
 				if(err){ throw err }
 			});	
 		}
+		
+// Move original files into a folder
 		fs.rename(file, "processedFiles/" + file, function(err){
 			if (err) { throw err }
 		});	
 	});
 }
+
+			// console.log(threeDeepArray); 
+// var keyName = file.split('.')[0];
+// buildObj[keyName] = buildArray;
+// fs.writeFile("new_" + file.split('.')[0] + ".txt", JSON.stringify(buildObj), function(err){
