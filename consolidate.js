@@ -11,11 +11,17 @@ var fs = require("fs");
 var data = fs.readFileSync("all_data.json", 'utf8');
 data = JSON.parse(data);
 
+// create variables for each file
+var deptId_deptName = data[0];
+var empId_deptId = data[1];
+var empId_name = data[2];
+var empId_salary = data[3];
+
 var workingFile = [];
 
 // filter salaries for salaries with
 // current employees only
-var salaries = data[3].filter(function(elem){
+var salaries = empId_salary.filter(function(elem){
 	return elem[3] == '9999-01-01';
 });
 
@@ -23,8 +29,8 @@ var salaries = data[3].filter(function(elem){
 // the deptId. Returns an array with
 // dept name and dept id as elements
 function currentDept(deptId){
-	var depts = data[0].filter(function(elem){ 
-	return elem[0] == deptId;
+	var depts = deptId_deptName.filter(function(elem){ 
+		return elem[0] == deptId;
 	});
 	return depts[0][1];
 }
@@ -32,30 +38,29 @@ function currentDept(deptId){
 // iterating through each remaining salary and
 // try to match the empID with some element
 // from within our all_data file
-salaries.forEach(function(sal, index){
+salaries.forEach(function(sal, line){
 	
 	// No match so keep checking next element 
 	// until a match is found
-	while (data[2][index][0] != sal[0]) {
-		data[2].shift();
+	while (empId_name[line][0] != sal[0]) {
+		empId_name.shift();
 	}
 	
 	// No match so keep checking next element 
 	// until a match is found	
-	while (data[1][index][0] != sal[0]) {
-		data[1].shift();
+	while (empId_deptId[line][0] != sal[0]) {
+		empId_deptId.shift();
 	}	
 	
 // Creates a 2d array containg all pertinent data
 // data extracted from all files
-	var deptIdFromDepts  = data[1][index][1];	
-	var firstName = data[2][index][2];
-	var lastName = data[2][index][3];
+	var deptIdFromDepts  = empId_deptId[line][1];	
+	var firstName = empId_name[line][2];
+	var lastName = empId_name[line][3];
 	var elem = [];
 	elem.push(sal[0], firstName, lastName, currentDept(deptIdFromDepts), sal[1]);
 	workingFile.push(elem);
 });
-
 
 // writes 2d array to file
 fs.writeFile("consolidated.json", JSON.stringify(workingFile), function(err){
@@ -64,6 +69,4 @@ fs.writeFile("consolidated.json", JSON.stringify(workingFile), function(err){
 		fs.rename("all_data.json", "processedFiles/all_data.json", function(err){
 			if (err) { throw err }
 		});					
-});	
-
-
+});

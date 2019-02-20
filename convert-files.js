@@ -37,7 +37,7 @@ function convertFile(file){
 			});	
 		}
 		
-		// Move original data files into a the" processedFiles" folder
+		// Move original data files into the "processedFiles" folder
 		fs.rename(file, "processedFiles/" + file, function(err){
 			if (err) { throw err }
 		});	
