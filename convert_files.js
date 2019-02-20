@@ -31,7 +31,7 @@ function convertFile(file){
 		if (fileCount == 4){
 			
 // Save 3d array to a file
-			fs.writeFile("files_as_array.txt", JSON.stringify(threeDeepArray), function(err){
+			fs.writeFile("files_as_array.json", JSON.stringify(threeDeepArray), function(err){
 				if(err){ throw err }
 			});	
 		}

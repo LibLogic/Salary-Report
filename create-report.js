@@ -3,7 +3,7 @@ var fs = require("fs");
 // output-file.txt contains all the data needed
 // in an array with elements like this 
 // [ 10001, 'Georgi', 'Facello', 'Development', 88958 ]
-var data = fs.readFileSync("output-file.txt", 'utf8');
+var data = fs.readFileSync("consolidated.json", 'utf8');
 data = JSON.parse(data);
 
 // create an array of only departments

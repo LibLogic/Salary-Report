@@ -1,6 +1,6 @@
 var fs = require("fs");
 
-var data = fs.readFileSync("files_as_array.txt", 'utf8');
+var data = fs.readFileSync("files_as_array.json", 'utf8');
 data = JSON.parse(data);
 
 var workingFile = [];
@@ -40,10 +40,10 @@ salaries.forEach(function(sal, index){
 	workingFile.push(elem);
 });
 // writes 2d array to file
-fs.writeFile("output-file.txt", JSON.stringify(workingFile), function(err){
+fs.writeFile("consolidated.json", JSON.stringify(workingFile), function(err){
 				if(err){ throw err }
 // moves processed file into folder				
-		fs.rename("files_as_array.txt", "processedFiles/files_as_array.txt", function(err){
+		fs.rename("files_as_array.json", "processedFiles/files_as_array.json", function(err){
 			if (err) { throw err }
 		});					
 });	
