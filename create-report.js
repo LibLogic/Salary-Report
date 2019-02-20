@@ -32,4 +32,5 @@ departments.forEach(function(dept){
 		deptTotal = 0;
 });
 
+
 console.log(deptTotals);

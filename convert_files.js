@@ -6,8 +6,8 @@ convertFile("load_dept_emp.txt");
 convertFile("load_employees.txt");
 convertFile("load_salaries.txt");
 
-// This function create3 a 3 dimensional array with each
-// file as an element in the array
+// This main function create3 a 3 dimensional 
+// array with each data file as an element
 var threeDeepArray = [];
 var fileCount = 0;
 function convertFile(file){
@@ -23,27 +23,23 @@ function convertFile(file){
 		line = JSON.parse('[' + line + ']');
 		twoDeepArray.push(line);
 	});
-// put eah 2 dimensional array into another "3d" array
+	// put each 2 dimensional array into
+	// 3 dimentional data array
 	myInterface.on
 	('close', function(){
 		fileCount++;
 		threeDeepArray.push(twoDeepArray);
 		if (fileCount == 4){
 			
-// Save 3d array to a file
-			fs.writeFile("files_as_array.json", JSON.stringify(threeDeepArray), function(err){
+			// Save data array to a file
+			fs.writeFile("all_data.json", JSON.stringify(threeDeepArray), function(err){
 				if(err){ throw err }
 			});	
 		}
 		
-// Move original files into a folder
+		// Move original data files into a the" processedFiles" folder
 		fs.rename(file, "processedFiles/" + file, function(err){
 			if (err) { throw err }
 		});	
 	});
 }
-
-			// console.log(threeDeepArray); 
-// var keyName = file.split('.')[0];
-// buildObj[keyName] = buildArray;
-// fs.writeFile("new_" + file.split('.')[0] + ".txt", JSON.stringify(buildObj), function(err){
