@@ -19,7 +19,7 @@ function convertFile(file){
 	// element being a line from the file
 	var twoDeepArray = [];
 	myInterface.on('line', function (line) {
-		line = line.replace(/\(|\)\,|\)|\s/g, "").replace(/\'/g, "\"");
+		line = line.replace(/\(|\)\,|\)/g, "").replace(/\'/g, "\"");
 		line = JSON.parse('[' + line + ']');
 		twoDeepArray.push(line);
 	});
