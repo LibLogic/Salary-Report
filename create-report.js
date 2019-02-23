@@ -16,7 +16,7 @@ consolidated.forEach(function(elem){
 });
 
 // compare index[3] in each line of consolidated to find a
-// match in the deptartment name array. When matched, get that
+// match in the department array. When matched, get that
 // employees salary and accumulate it to the total for the
 // current department. Console.log a report.
 var deptTotal = 0;
@@ -29,6 +29,6 @@ departments.forEach(function(dept){
 			}
 		});
 		console.log(`\n\t\t———————————————————————————————————— Dept. Salary Total: ${deptTotal.toLocaleString('en-US', {style: 'currency', currency: 'USD'})} ——————————`);
-		
+		// reset the total before iterating the next department
 		deptTotal = 0;
 });
