@@ -6,6 +6,7 @@ convertFile("load_dept_emp.txt");
 convertFile("load_employees.txt");
 convertFile("load_salaries.txt");
 
+
 // This main function create3 a 3 dimensional 
 // array with each data file as an element
 var threeDeepArray = [];
@@ -19,9 +20,18 @@ function convertFile(file){
 	// element being a line from the file
 	var twoDeepArray = [];
 	myInterface.on('line', function (line) {
-		line = line.replace(/\(|\)\,|\)/g, "").replace(/\'/g, "\"");
-		line = JSON.parse('[' + line + ']');
-		twoDeepArray.push(line);
+			
+		line = line.replace(/\'/g, "\"");
+			
+		if(line.indexOf("(") != -1 && line.indexOf(")") != -1) {
+			 line = line.substr(0, line.lastIndexOf(")"));
+			line = line.substr(line.indexOf("(") + 1);
+		} else { line = "" }
+	
+		if (line != "") {
+			line = JSON.parse('[' + line + ']');
+			twoDeepArray.push(line);
+		}
 	});
 	// put each 2 dimensional array into
 	// 3 dimentional data array
